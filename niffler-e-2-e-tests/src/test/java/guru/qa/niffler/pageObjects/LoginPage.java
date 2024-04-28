@@ -9,10 +9,10 @@ public class LoginPage extends BasePage<LoginPage> {
     private String passwordField = "input[name='password']";
     private String submitBtn = "button[type='submit']";
 
-    public LoginPage doLogin() {
+    public LoginPage doLogin(String userName, String password) {
         $(loginBtn).click();
-        $(userNameField).setValue("dima");
-        $(passwordField).setValue("12345");
+        $(userNameField).setValue(userName);
+        $(passwordField).setValue(password);
         $(submitBtn).click();
         return this;
     }
