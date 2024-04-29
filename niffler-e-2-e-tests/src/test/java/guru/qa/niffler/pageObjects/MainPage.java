@@ -16,6 +16,8 @@ public class MainPage extends BasePage<MainPage> {
     private final String tableBody = ".spendings-table tbody";
     private final String allPeopleHeaderBtn = "[href='/people']";
     private final String allFriendsHeaderBtn = "[href='/friends']";
+    private final String logoutBtn = "[data-tooltip-id='logout']";
+    private final String headerSigh = ".header__sign";
 
     public MainPage selectCategory(String description) {
         SelenideElement rowWithSpending = $(tableBody)
@@ -35,8 +37,19 @@ public class MainPage extends BasePage<MainPage> {
         return this;
     }
 
-    public MainPage clickAlPeopleSection() {
+    public MainPage clickAllPeopleSection() {
         $(allPeopleHeaderBtn).shouldBe(visible).click();
+        return this;
+    }
+
+    public MainPage doLogout () {
+        $(logoutBtn).click();
+        return this;
+    }
+
+    public MainPage clickAllFriendsSection () {
+        $(headerSigh).shouldBe(visible);
+        $(allFriendsHeaderBtn).click();
         return this;
     }
 
