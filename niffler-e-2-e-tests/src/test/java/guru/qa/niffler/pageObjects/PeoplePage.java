@@ -34,15 +34,25 @@ public class PeoplePage extends BasePage<PeoplePage> {
                 .filter(visible)
                 .shouldHave(size(2)
                         .because("Проверяем, что в списке people два пользователя, которых мы создали"));
-
-        firstUser.$$(listUserProperties).get(USER_NAME).shouldHave(exactText(targetFriend).because("у первого должно быть имя " + targetFriend));
-        // secondUser.$$(listUserProperties).get(USER_NAME).shouldHave(exactText("chucknorris").because("у второго пользователя должно быть имя chucknorris"));
         $$x(listPeople)
                 .filter(text(targetFriend)
-                        .because("среди списка пользователей, находим "+targetFriend+" и отправляем приглашение"))
+                        .because("среди списка пользователей, находим " + targetFriend + " и отправляем приглашение"))
+                .first().$$(listUserProperties)
+                .get(USER_NAME)
+                .shouldHave(exactText(targetFriend)
+                        .because("у первого должно быть имя " + targetFriend));
+        $$x(listPeople)
+                .filter(text(targetFriend)
+                        .because("среди списка пользователей, находим " + targetFriend + " и отправляем приглашение"))
                 .first()
-                .find(By.cssSelector(addFriendBtn)).click();
-        firstUser.find(By.cssSelector(".abstract-table__buttons")).shouldHave(exactText("Pending invitation"));
+                .find(By.cssSelector(addFriendBtn))
+                .click();
+        $$x(listPeople)
+                .filter(text(targetFriend)
+                        .because("среди списка пользователей, находим " + targetFriend + " и проверяем, что приглашение отправлено"))
+                .first()
+                .find(By.cssSelector(".abstract-table__buttons"))
+                .shouldHave(exactText("Pending invitation"));
         getLogger().info("Отправили приглашение для {}", targetFriend);
         return this;
     }

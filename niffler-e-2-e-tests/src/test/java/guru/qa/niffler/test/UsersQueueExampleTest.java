@@ -19,7 +19,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+       // $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -29,7 +29,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+     //   $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -39,7 +39,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+      //  $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -49,7 +49,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+      //  $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -59,7 +59,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+      //  $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
