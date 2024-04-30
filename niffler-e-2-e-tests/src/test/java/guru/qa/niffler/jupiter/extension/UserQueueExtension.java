@@ -2,7 +2,9 @@ package guru.qa.niffler.jupiter.extension;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import guru.qa.niffler.model.NifflerUser;
@@ -23,35 +25,31 @@ public class UserQueueExtension implements
     public static final ExtensionContext.Namespace NAMESPACE
             = ExtensionContext.Namespace.create(UserQueueExtension.class);
 
-    private static final Map<Pair<NifflerUser, NifflerUser>, AtomicInteger> USER_PAIRS = new ConcurrentHashMap<>();
+    private static final Queue<Pair<NifflerUser, NifflerUser>> USER_PAIRS = new ConcurrentLinkedQueue<>();
 
     static {
-        USER_PAIRS.put(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_CHUCKNORRIS), new AtomicInteger(0));
-        USER_PAIRS.put(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_DIMA), new AtomicInteger(0));
-        USER_PAIRS.put(Pair.of(NifflerUser.NIFFLER_CHUCKNORRIS, NifflerUser.NIFFLER_DIMA), new AtomicInteger(0));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_CHUCKNORRIS));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_DIMA, NifflerUser.NIFFLER_QWERTY));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_CHUCKNORRIS, NifflerUser.NIFFLER_DIMA));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_CHUCKNORRIS));
+
     }
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
         Pair<NifflerUser, NifflerUser> userPairForTest = null;
         while (userPairForTest == null) {
-            for (Map.Entry<Pair<NifflerUser, NifflerUser>, AtomicInteger> entry : USER_PAIRS.entrySet()) {
-                if (entry.getValue().getAndIncrement() == 0) {
-                    userPairForTest = entry.getKey();
-                    break;
-                }
-            }
+            userPairForTest = USER_PAIRS.poll();
         }
-        Allure.getLifecycle().updateTestCase(testCase -> {
-            testCase.setStart(new Date().getTime());
-        });
+        Allure.getLifecycle()
+                .updateTestCase(testCase -> testCase.setStart(new Date().getTime())                );
         context.getStore(NAMESPACE).put(context.getUniqueId(), userPairForTest);
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
         Pair<NifflerUser, NifflerUser> userPairFromTest = context.getStore(NAMESPACE).get(context.getUniqueId(), Pair.class);
-        USER_PAIRS.get(userPairFromTest).decrementAndGet();
+        USER_PAIRS.add(userPairFromTest);
     }
 
     @Override
