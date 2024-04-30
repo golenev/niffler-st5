@@ -1,6 +1,6 @@
 package guru.qa.niffler.test;
 
-import guru.qa.niffler.extensions.DesktopCapabilities;
+import guru.qa.niffler.extensions.BrowserCapabilities;
 import guru.qa.niffler.jupiter.annotation.Category;
 import guru.qa.niffler.jupiter.annotation.Spend;
 import guru.qa.niffler.model.CurrencyValues;
@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static guru.qa.niffler.constants.Constants.AUTH_PAGE;
 
 
-@ExtendWith(DesktopCapabilities.class)
+@ExtendWith(BrowserCapabilities.class)
 public class SpendingTest {
 
 

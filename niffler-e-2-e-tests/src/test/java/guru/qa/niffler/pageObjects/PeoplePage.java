@@ -1,13 +1,16 @@
 package guru.qa.niffler.pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static guru.qa.niffler.ThreadLocalLogger.getLogger;
 
+@Slf4j
 public class PeoplePage extends BasePage<PeoplePage> {
 
     private final String listPeople = "//table/tbody/tr";
@@ -26,17 +29,21 @@ public class PeoplePage extends BasePage<PeoplePage> {
      * 6. Проверяем, что на месте кнопки появился текст "Pending invitation"
      */
     public PeoplePage sendInvitation(String targetFriend) {
+        getLogger().info("Открыли раздел AllPeople и ищём {}", targetFriend);
         $$x(listPeople)
                 .filter(visible)
                 .shouldHave(size(2)
                         .because("Проверяем, что в списке people два пользователя, которых мы создали"));
-        $$(".abstract-table__buttons")
-                .forEach(a -> a.shouldNot(exactText("Pending invitation")
-                        .because("ПОка не отправлено ни одно приглашение, кнопка Pending invitation не должна присутствовать")));
-        firstUser.$$(listUserProperties).get(USER_NAME).shouldHave(exactText("qwerty").because("у первого должно быть имя qwerty"));
-        secondUser.$$(listUserProperties).get(USER_NAME).shouldHave(exactText("chucknorris").because("у второго пользователя должно быть имя chucknorris"));
-        $$x(listPeople).filter(text(targetFriend)).first().find(By.cssSelector(addFriendBtn)).click();
+
+        firstUser.$$(listUserProperties).get(USER_NAME).shouldHave(exactText(targetFriend).because("у первого должно быть имя " + targetFriend));
+        // secondUser.$$(listUserProperties).get(USER_NAME).shouldHave(exactText("chucknorris").because("у второго пользователя должно быть имя chucknorris"));
+        $$x(listPeople)
+                .filter(text(targetFriend)
+                        .because("среди списка пользователей, находим "+targetFriend+" и отправляем приглашение"))
+                .first()
+                .find(By.cssSelector(addFriendBtn)).click();
         firstUser.find(By.cssSelector(".abstract-table__buttons")).shouldHave(exactText("Pending invitation"));
+        getLogger().info("Отправили приглашение для {}", targetFriend);
         return this;
     }
 

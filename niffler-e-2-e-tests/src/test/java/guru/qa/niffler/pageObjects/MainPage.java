@@ -1,6 +1,7 @@
 package guru.qa.niffler.pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.text;
@@ -8,6 +9,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static guru.qa.niffler.constants.Constants.CENTER;
 
+@Slf4j
 public class MainPage extends BasePage<MainPage> {
 
     private final String trSet = "tr";
@@ -43,7 +45,7 @@ public class MainPage extends BasePage<MainPage> {
     }
 
     public MainPage doLogout () {
-        $(logoutBtn).click();
+        $(logoutBtn).shouldBe(visible).click();
         return this;
     }
 

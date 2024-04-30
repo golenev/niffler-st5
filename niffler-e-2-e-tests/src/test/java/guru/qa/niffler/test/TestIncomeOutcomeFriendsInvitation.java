@@ -1,7 +1,7 @@
 package guru.qa.niffler.test;
 
 
-import guru.qa.niffler.extensions.DesktopCapabilities;
+import guru.qa.niffler.extensions.BrowserCapabilities;
 import guru.qa.niffler.model.NifflerUser;
 import guru.qa.niffler.pageObjects.FriendsPage;
 import guru.qa.niffler.pageObjects.LoginPage;
@@ -14,31 +14,35 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static com.codeborne.selenide.Selenide.open;
 import static guru.qa.niffler.constants.Constants.AUTH_PAGE;
 
-@ExtendWith(DesktopCapabilities.class)
+@ExtendWith(BrowserCapabilities.class)
 public class TestIncomeOutcomeFriendsInvitation {
 
     private static Object[][] provideArguments() {
         return new Object[][]{
                 {NifflerUser.NIFFLER_DIMA, NifflerUser.NIFFLER_QWERTY},
+                {NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_DIMA},
+               // {NifflerUser.NIFFLER_CHUCKNORRIS, NifflerUser.NIFFLER_QWERTY},
+               // {NifflerUser.NIFFLER_DIMA, NifflerUser.NIFFLER_QWERTY},
+
         };
     }
 
-    @ParameterizedTest(name = "Тест создания и получения заявки в друзья")
+    @ParameterizedTest(name = "Тест создания и получения заявки в друзья от {0} к {1}")
     @MethodSource("provideArguments")
-    void testIncomeOutcomeFriendsInvitation(NifflerUser dima, NifflerUser qwerty) {
+    void testIncomeOutcomeFriendsInvitation(NifflerUser invitingUser, NifflerUser receivingUser) {
         open(AUTH_PAGE, LoginPage.class)
-                .doLogin(dima.username(), dima.password())
+                .doLogin(invitingUser.username(), invitingUser.password())
                 .at(MainPage.class)
                 .clickAllPeopleSection()
                 .at(PeoplePage.class)
-                .sendInvitation(qwerty.username())
+                .sendInvitation(receivingUser.username())
                 .at(MainPage.class)
                 .doLogout()
                 .at(LoginPage.class)
-                .doLogin(qwerty.username(), qwerty.password())
+                .doLogin(receivingUser.username(), receivingUser.password())
                 .at(MainPage.class)
                 .clickAllFriendsSection()
                 .at(FriendsPage.class)
-                .checkInvitation();
+                .checkInvitation(invitingUser.username());
     }
 }
