@@ -16,10 +16,6 @@ public class MainPage extends BasePage<MainPage> {
     private final String tdSet = "td";
     private final String deleteBtn = ".spendings__bulk-actions button";
     private final String tableBody = ".spendings-table tbody";
-    private final String allPeopleHeaderBtn = "[href='/people']";
-    private final String allFriendsHeaderBtn = "[href='/friends']";
-    private final String logoutBtn = "[data-tooltip-id='logout']";
-    private final String headerSigh = ".header__sign";
 
     public MainPage selectCategory(String description) {
         SelenideElement rowWithSpending = $(tableBody)

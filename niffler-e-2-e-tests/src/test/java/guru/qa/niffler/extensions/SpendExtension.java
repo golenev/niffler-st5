@@ -7,10 +7,10 @@ import guru.qa.niffler.retrofit.spendsEndpoint.SpendsClient;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.support.AnnotationSupport;
 
-public class NewSpendExtension implements BeforeEachCallback, ParameterResolver {
+public class SpendExtension implements BeforeEachCallback, ParameterResolver {
 
     public static final ExtensionContext.Namespace NAMESPACE
-            = ExtensionContext.Namespace.create(NewSpendExtension.class);
+            = ExtensionContext.Namespace.create(SpendExtension.class);
 
     @Override
     public void beforeEach(ExtensionContext extensionContext) {
@@ -24,9 +24,9 @@ public class NewSpendExtension implements BeforeEachCallback, ParameterResolver 
                 Spend.class
         ).ifPresent(
                 spend -> {
-                    var spendClient = new SpendsClient()
+                    var spendsClient = new SpendsClient()
                             .createSpend(category.category(), spend.currency(), spend.amount(), spend.description(), category.username());
-                    extensionContext.getStore(NAMESPACE).put(extensionContext.getUniqueId(), spendClient);
+                    extensionContext.getStore(NAMESPACE).put(extensionContext.getUniqueId(), spendsClient);
                 }
         );
     }

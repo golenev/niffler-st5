@@ -1,10 +1,7 @@
 package guru.qa.niffler.extensions;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.MutableCapabilities;
@@ -22,7 +19,6 @@ public class BrowserCapabilities implements BeforeAllCallback, AfterEachCallback
         options.setExperimentalOption("prefs", prefs);
         return options
                 .addArguments("--disable-notifications");
-
     }
 
     @Override
