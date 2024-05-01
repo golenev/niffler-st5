@@ -20,5 +20,4 @@ public class CategoriesClient {
         return retrofitInitializer.executeRequest(categoriesService.addCategory(createCategoryBody(category, username)), CategoryJson.class);
     }
 
-
 }
