@@ -18,9 +18,9 @@ public class CategoriesExtension implements BeforeEachCallback {
                 Category.class
         ).ifPresent(
                 category -> {
-                    var cat = new CategoriesClient()
+                    var categoryClient = new CategoriesClient()
                             .addNewCategory(category.category(), category.username());
-                    extensionContext.getStore(NAMESPACE).put(extensionContext.getUniqueId(), cat);
+                    extensionContext.getStore(NAMESPACE).put(extensionContext.getUniqueId(), categoryClient);
                 });
     }
 

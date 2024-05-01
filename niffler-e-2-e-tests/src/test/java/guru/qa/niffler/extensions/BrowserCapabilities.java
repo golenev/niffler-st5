@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.HashMap;
 
-public class DesktopCapabilities implements BeforeAllCallback {
+public class BrowserCapabilities implements BeforeAllCallback {
 
     private static ChromeOptions getChromeOptions() {
         ChromeOptions options = new ChromeOptions();

@@ -25,9 +25,4 @@ public class SpendsClient {
         return retrofitInitializer.executeRequest(spendsService.createSpend(createSpendsBody(category, currencyValues, amount, description, username)), SpendJson.class);
     }
 
-//    @Test
-//    void test() {
-//        createSpend();
-//    }
-
 }

@@ -14,7 +14,6 @@ public class MainPage extends BasePage<MainPage> {
     private final String deleteBtn = ".spendings__bulk-actions button";
     private final String tableBody = ".spendings-table tbody";
 
-
     public MainPage selectCategory(String description) {
         SelenideElement rowWithSpending = $(tableBody)
                 .$$(trSet)
