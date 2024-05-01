@@ -23,14 +23,6 @@ public class PeoplePage extends BasePage<PeoplePage> {
     private final String pendingInvitationTitle = "Pending invitation";
     private final ElementsCollection listPeoples = $$x(listPeople);
 
-    /**
-     * 1. Проверяем, что в списке people две сущности
-     * 2. Проверяем, что пока мы не отпрапвили ни одного приглашения, у нас не присутствует заголовок "Pending invitation"
-     * 3. Проверяем имя первой сущности
-     * 4. Проверяем имя второй сущности
-     * 5. Нажимаем кнопку AddFriend для первой сущности с именем qwerty
-     * 6. Проверяем, что на месте кнопки появился текст "Pending invitation"
-     */
     public PeoplePage sendInvitation(String targetFriend) {
         log.info("Открыли раздел AllPeople и ищём {}", targetFriend);
         listPeoples
