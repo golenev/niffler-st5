@@ -17,7 +17,6 @@ import static guru.qa.niffler.constants.Constants.AUTH_PAGE;
 @ExtendWith(BrowserCapabilities.class)
 public class SpendingTest {
 
-
     @Category(category = "обучение6", username = "dima")
     @Spend(currency = CurrencyValues.RUB, amount = 65000.0, description = "курсы99")
     @Test

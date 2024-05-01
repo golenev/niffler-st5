@@ -24,9 +24,9 @@ public class NewSpendExtension implements BeforeEachCallback, ParameterResolver 
                 Spend.class
         ).ifPresent(
                 spend -> {
-                    var res = new SpendsClient()
+                    var spendClient = new SpendsClient()
                             .createSpend(category.category(), spend.currency(), spend.amount(), spend.description(), category.username());
-                    extensionContext.getStore(NAMESPACE).put(extensionContext.getUniqueId(), res);
+                    extensionContext.getStore(NAMESPACE).put(extensionContext.getUniqueId(), spendClient);
                 }
         );
     }

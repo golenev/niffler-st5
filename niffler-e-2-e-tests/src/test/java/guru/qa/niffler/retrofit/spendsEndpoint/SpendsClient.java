@@ -3,10 +3,8 @@ package guru.qa.niffler.retrofit.spendsEndpoint;
 import guru.qa.niffler.model.CurrencyValues;
 import guru.qa.niffler.model.SpendJson;
 import guru.qa.niffler.retrofit.RetrofitInitializer;
-import org.junit.jupiter.api.Test;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class SpendsClient {
 
@@ -24,10 +22,5 @@ public class SpendsClient {
         SpendsService spendsService = retrofitInitializer.createService(SpendsService.class);
         return retrofitInitializer.executeRequest(spendsService.createSpend(createSpendsBody(category, currencyValues, amount, description, username)), SpendJson.class);
     }
-
-//    @Test
-//    void test() {
-//        createSpend();
-//    }
 
 }

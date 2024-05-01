@@ -15,6 +15,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import static com.codeborne.selenide.Selenide.open;
 import static guru.qa.niffler.constants.Constants.AUTH_PAGE;
+
 @Slf4j
 @ExtendWith(BrowserCapabilities.class)
 @ExtendWith(UserQueueExtension.class)
