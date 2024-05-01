@@ -20,11 +20,11 @@ public class FriendsPage extends BasePage<FriendsPage> {
     private final String listUserProperties = "td";
     private final int USER_NAME = 1;
     private final SelenideElement declineInvitation = $("[data-tooltip-id='decline-invitation']");
-
+    private final ElementsCollection listPeoples = $$x(listPeople);
 
     public FriendsPage checkInvitation(String invitingUser) {
         log.info("Открыли раздел управления друзьями и ищем заявку в друзья от {}", invitingUser);
-        $$x(listPeople)
+        listPeoples
                 .filter(visible)
                 .shouldHave(sizeGreaterThanOrEqual(1)
                         .because("в списке invitations должно быть минимум одно приглашение"));
