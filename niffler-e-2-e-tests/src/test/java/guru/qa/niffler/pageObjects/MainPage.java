@@ -16,6 +16,10 @@ public class MainPage extends BasePage<MainPage> {
     private final String tdSet = "td";
     private final String deleteBtn = ".spendings__bulk-actions button";
     private final String tableBody = ".spendings-table tbody";
+    private final SelenideElement allPeopleHeaderBtn = $("[href='/people']");
+    private final SelenideElement logoutBtn = $("[data-tooltip-id='logout']");
+    private final SelenideElement headerSign = $(".header__link .header__sign");
+    private final SelenideElement allFriendsHeaderBtn = $("[href='/friends']");
 
     public MainPage selectCategory(String description) {
         SelenideElement rowWithSpending = $(tableBody)
@@ -40,14 +44,14 @@ public class MainPage extends BasePage<MainPage> {
         return this;
     }
 
-    public MainPage doLogout () {
-        $(logoutBtn).shouldBe(visible).click();
+    public MainPage doLogout() {
+        logoutBtn.shouldBe(visible).click();
         return this;
     }
 
-    public MainPage clickAllFriendsSection () {
-        $(headerSigh).shouldBe(visible);
-        $(allFriendsHeaderBtn).click();
+    public MainPage clickAllFriendsSection() {
+        headerSign.shouldBe(visible);
+        allFriendsHeaderBtn.click();
         return this;
     }
 
