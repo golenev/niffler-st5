@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static guru.qa.niffler.ThreadLocalLogger.getLogger;
 
 @Slf4j
 public class LoginPage extends BasePage<LoginPage> {
@@ -19,7 +18,7 @@ public class LoginPage extends BasePage<LoginPage> {
         $(userNameField).setValue(userName);
         $(passwordField).setValue(password);
         $(submitBtn).click();
-        getLogger().info("авторизовались под {}", userName);
+        log.info("авторизовались под {}", userName);
         return this;
     }
 

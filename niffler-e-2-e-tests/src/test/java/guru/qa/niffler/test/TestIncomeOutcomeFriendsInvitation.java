@@ -8,21 +8,21 @@ import guru.qa.niffler.pageObjects.FriendsPage;
 import guru.qa.niffler.pageObjects.LoginPage;
 import guru.qa.niffler.pageObjects.MainPage;
 import guru.qa.niffler.pageObjects.PeoplePage;
-import org.junit.jupiter.api.DisplayName;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import static com.codeborne.selenide.Selenide.open;
 import static guru.qa.niffler.constants.Constants.AUTH_PAGE;
-
+@Slf4j
 @ExtendWith(BrowserCapabilities.class)
 @ExtendWith(UserQueueExtension.class)
 public class TestIncomeOutcomeFriendsInvitation {
 
     @Test
     void testIncomeOutcomeFriendsInvitation1(Pair<NifflerUser, NifflerUser> pair1) {
+        log.info("{}{}", pair1.toString(), Thread.currentThread().getStackTrace()[1].getMethodName());
         NifflerUser invitingUser = pair1.getLeft();
         NifflerUser receivingUser = pair1.getRight();
         open(AUTH_PAGE, LoginPage.class)
@@ -43,6 +43,7 @@ public class TestIncomeOutcomeFriendsInvitation {
 
     @Test
     void testIncomeOutcomeFriendsInvitation2(Pair<NifflerUser, NifflerUser> pair1) {
+        log.info("{}{}", pair1.toString(), Thread.currentThread().getStackTrace()[1].getMethodName());
         NifflerUser invitingUser = pair1.getLeft();
         NifflerUser receivingUser = pair1.getRight();
         open(AUTH_PAGE, LoginPage.class)
@@ -63,6 +64,7 @@ public class TestIncomeOutcomeFriendsInvitation {
 
     @Test
     void testIncomeOutcomeFriendsInvitation3(Pair<NifflerUser, NifflerUser> pair1) {
+        log.info("{}{}", pair1.toString(), Thread.currentThread().getStackTrace()[1].getMethodName());
         NifflerUser invitingUser = pair1.getLeft();
         NifflerUser receivingUser = pair1.getRight();
         open(AUTH_PAGE, LoginPage.class)
@@ -83,6 +85,7 @@ public class TestIncomeOutcomeFriendsInvitation {
 
     @Test
     void testIncomeOutcomeFriendsInvitation4(Pair<NifflerUser, NifflerUser> pair1) {
+        log.info("{}{}", pair1.toString(), Thread.currentThread().getStackTrace()[1].getMethodName());
         NifflerUser invitingUser = pair1.getLeft();
         NifflerUser receivingUser = pair1.getRight();
         open(AUTH_PAGE, LoginPage.class)

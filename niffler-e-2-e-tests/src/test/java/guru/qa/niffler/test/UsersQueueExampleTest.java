@@ -14,6 +14,8 @@ import static com.codeborne.selenide.Selenide.$;
 @ExtendWith(UserQueueExtension.class)
 public class UsersQueueExampleTest {
 
+    //для ревьюера: это не мой код, а образец с урока
+
     @Test
     void loginTest0(UserJson testUser) {
         Selenide.open("http://127.0.0.1:3000/");

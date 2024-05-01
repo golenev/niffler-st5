@@ -32,7 +32,6 @@ public class UserQueueExtension implements
         USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_DIMA, NifflerUser.NIFFLER_QWERTY));
         USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_CHUCKNORRIS, NifflerUser.NIFFLER_DIMA));
         USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_CHUCKNORRIS));
-
     }
 
     @Override
