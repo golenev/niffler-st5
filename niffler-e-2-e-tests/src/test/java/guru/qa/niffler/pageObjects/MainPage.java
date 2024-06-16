@@ -1,18 +1,25 @@
 package guru.qa.niffler.pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.extern.slf4j.Slf4j;
 
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static guru.qa.niffler.constants.Constants.CENTER;
 
+@Slf4j
 public class MainPage extends BasePage<MainPage> {
 
-    public static final String CENTER = "{block: \"center\"}";
     private final String trSet = "tr";
     private final String tdSet = "td";
     private final String deleteBtn = ".spendings__bulk-actions button";
     private final String tableBody = ".spendings-table tbody";
+    private final SelenideElement allPeopleHeaderBtn = $("[href='/people']");
+    private final SelenideElement logoutBtn = $("[data-tooltip-id='logout']");
+    private final SelenideElement headerSign = $(".header__link .header__sign");
+    private final SelenideElement allFriendsHeaderBtn = $("[href='/friends']");
 
     public MainPage selectCategory(String description) {
         SelenideElement rowWithSpending = $(tableBody)
@@ -29,6 +36,22 @@ public class MainPage extends BasePage<MainPage> {
         $(deleteBtn).click();
         $(tableBody).$$(trSet)
                 .shouldHave(size(0));
+        return this;
+    }
+
+    public MainPage clickAllPeopleSection() {
+        $(allPeopleHeaderBtn).shouldBe(visible).click();
+        return this;
+    }
+
+    public MainPage doLogout() {
+        logoutBtn.shouldBe(visible).click();
+        return this;
+    }
+
+    public MainPage clickAllFriendsSection() {
+        headerSign.shouldBe(visible);
+        allFriendsHeaderBtn.click();
         return this;
     }
 

@@ -14,12 +14,14 @@ import static com.codeborne.selenide.Selenide.$;
 @ExtendWith(UserQueueExtension.class)
 public class UsersQueueExampleTest {
 
+    //для ревьюера: это не мой код, а образец с урока
+
     @Test
     void loginTest0(UserJson testUser) {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+       // $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -29,7 +31,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+     //   $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -39,7 +41,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+      //  $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -49,7 +51,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+      //  $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }
@@ -59,7 +61,7 @@ public class UsersQueueExampleTest {
         Selenide.open("http://127.0.0.1:3000/");
         $("a[href*='redirect']").click();
         $("input[name='username']").setValue(testUser.username());
-        $("input[name='password']").setValue(testUser.testData().password());
+      //  $("input[name='password']").setValue(testUser.testData().password());
         $("button[type='submit']").click();
         $(".header__avatar").should(visible);
     }

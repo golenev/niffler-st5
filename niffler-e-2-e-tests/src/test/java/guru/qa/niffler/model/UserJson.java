@@ -23,23 +23,5 @@ public record UserJson(
         @JsonProperty("photoSmall")
         String photoSmall,
         @JsonProperty("friendState")
-        FriendState friendState,
-        @JsonIgnore
-        TestData testData) {
-
-    public static UserJson simpleUser(String username, String password) {
-        return new UserJson(
-                null,
-                username,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                new TestData(
-                        password
-                )
-        );
-    }
+        FriendState friendState) {
 }

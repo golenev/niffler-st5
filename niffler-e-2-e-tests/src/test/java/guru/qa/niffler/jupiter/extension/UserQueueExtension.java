@@ -1,7 +1,15 @@
 package guru.qa.niffler.jupiter.extension;
 
-import guru.qa.niffler.model.UserJson;
+import java.util.Date;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import guru.qa.niffler.model.NifflerUser;
 import io.qameta.allure.Allure;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -9,13 +17,6 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import java.util.Date;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-import static guru.qa.niffler.model.UserJson.simpleUser;
-
-// Любой тест проходит через него
 public class UserQueueExtension implements
         BeforeEachCallback,
         AfterEachCallback,
@@ -24,45 +25,43 @@ public class UserQueueExtension implements
     public static final ExtensionContext.Namespace NAMESPACE
             = ExtensionContext.Namespace.create(UserQueueExtension.class);
 
-    private static final Queue<UserJson> USERS = new ConcurrentLinkedQueue<>();
+    private static final Queue<Pair<NifflerUser, NifflerUser>> USER_PAIRS = new ConcurrentLinkedQueue<>();
 
     static {
-        USERS.add(simpleUser("dima", "12345"));
-        USERS.add(simpleUser("duck", "12345"));
-        USERS.add(simpleUser("barsik", "12345"));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_CHUCKNORRIS));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_DIMA, NifflerUser.NIFFLER_QWERTY));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_CHUCKNORRIS, NifflerUser.NIFFLER_DIMA));
+        USER_PAIRS.add(Pair.of(NifflerUser.NIFFLER_QWERTY, NifflerUser.NIFFLER_CHUCKNORRIS));
     }
-
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {
-        UserJson userForTest = null;
-        while (userForTest == null) {
-            userForTest = USERS.poll();
+        Pair<NifflerUser, NifflerUser> userPairForTest = null;
+        while (userPairForTest == null) {
+            userPairForTest = USER_PAIRS.poll();
         }
-        Allure.getLifecycle().updateTestCase(testCase -> {
-            testCase.setStart(new Date().getTime());
-        });
-        context.getStore(NAMESPACE).put(context.getUniqueId(), userForTest);
+        Allure.getLifecycle()
+                .updateTestCase(testCase -> testCase.setStart(new Date().getTime())                );
+        context.getStore(NAMESPACE).put(context.getUniqueId(), userPairForTest);
     }
 
     @Override
     public void afterEach(ExtensionContext context) throws Exception {
-        UserJson userFromTest = context.getStore(NAMESPACE).get(context.getUniqueId(), UserJson.class);
-        USERS.add(userFromTest);
+        Pair<NifflerUser, NifflerUser> userPairFromTest = context.getStore(NAMESPACE).get(context.getUniqueId(), Pair.class);
+        USER_PAIRS.add(userPairFromTest);
     }
-
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return parameterContext
                 .getParameter()
                 .getType()
-                .isAssignableFrom(UserJson.class);
+                .isAssignableFrom(Pair.class);
     }
 
     @Override
-    public UserJson resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         return extensionContext.getStore(NAMESPACE)
-                .get(extensionContext.getUniqueId(), UserJson.class);
+                .get(extensionContext.getUniqueId(), Pair.class);
     }
 }
