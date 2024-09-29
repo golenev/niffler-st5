@@ -27,7 +27,7 @@ public class KafkaService implements Runnable {
     private static final ObjectMapper OM = new ObjectMapper();
 
     private final AtomicBoolean threadStarted = new AtomicBoolean(true);
-    private final Consumer<String, String> stringConsumer;
+    private final KafkaConsumer<String, String> stringConsumer;
 
     private static final Properties STR_KAFKA_PROPERTIES = new Properties();
 
@@ -46,6 +46,7 @@ public class KafkaService implements Runnable {
 
     public void stop() {
         this.threadStarted.set(false);
+        this.stringConsumer.wakeup();
     }
 
     public static UserJson getMessage(String username) throws InterruptedException {
@@ -65,7 +66,7 @@ public class KafkaService implements Runnable {
                 try {
                     stringConsumer.commitSync();
                 } catch (CommitFailedException e) {
-                    LOG.warn("### Commit failed: " + e.getMessage());
+                    LOG.warn("### Commit failed: {}", e.getMessage());
                 }
             }
         } catch (Exception e) {

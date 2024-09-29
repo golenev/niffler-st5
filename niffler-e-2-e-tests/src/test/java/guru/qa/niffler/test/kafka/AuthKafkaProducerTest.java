@@ -12,7 +12,7 @@ public class AuthKafkaProducerTest extends BaseKafkaTest {
 
     @Test
     void messageShouldBeProducedToKafkaAfterSuccessfulRegistration() throws Exception {
-        String username = "HulioQwerAsq";
+        String username = "Niko001";
         String password = "12345";
         authApiClient.register(username, password);
 
