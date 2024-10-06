@@ -6,13 +6,13 @@ import guru.qa.niffler.model.UserJson;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class AuthKafkaProducerTest extends BaseKafkaTest {
+public class AsyncAuthKafkaProducerTest extends BaseKafkaTest {
 
     private final AuthApiClient authApiClient = new AuthApiClient();
 
     @Test
     void messageShouldBeProducedToKafkaAfterSuccessfulRegistration() throws Exception {
-        String username = "Niko001";
+        String username = "Niko001231";
         String password = "12345";
         authApiClient.register(username, password);
 

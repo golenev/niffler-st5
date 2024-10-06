@@ -22,7 +22,7 @@ import java.util.Properties;
 public class KafkaService implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(KafkaService.class);
-    private static final Config CFG = Config.getInstance();
+    public static final Config CFG = Config.getInstance();
     private static final WaitForOne<String, UserJson> STORE = new WaitForOne<>();
     private static final ObjectMapper OM = new ObjectMapper();
 
