@@ -28,7 +28,6 @@ public class SyncRegKafkaTest {
 
     @Test
     void messageShouldBeProducedToKafkaAfterSuccessfulRegistration() throws IOException {
-        //тут мы создаём нового консюмера/получателя, который считает из кафки то, что мы отправили через РЕСТ при регистрации
         Properties properties = new Properties();
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CFG1.kafkaAddress());
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "stringKafkaStringConsumerService");
@@ -37,8 +36,9 @@ public class SyncRegKafkaTest {
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         Consumer consumer = new KafkaConsumer(properties);
         consumer.subscribe(CFG1.kafkaTopics());
-        String username = "FriedrichQwe";
+        String username = "Johnatan";
         String password = "12345";
+        //регистрируем пользователя
         authApiClient.register(username, password);
         ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(10000));
         consumer.close();
